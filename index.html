@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nimbayaa | A Special Request</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2.5rem;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+        h1 { color: #ff4757; font-size: 1.8rem; margin-bottom: 1rem; }
+        .buttons {
+            margin-top: 2.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            height: 50px;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        #yesBtn {
+            background-color: #ff4757;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+        }
+        #yesBtn:hover { transform: scale(1.1); background-color: #ff6b81; }
+        #noBtn {
+            background-color: #747d8c;
+            color: white;
+            position: absolute; /* Essential for the jumping effect */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainCard">
+        <div style="font-size: 60px; margin-bottom: 10px;">✨</div>
+        <h1>Will you be my Valentine?</h1>
+        <p>I promise it'll be a fun time!</p>
+        
+        <div class="buttons">
+            <button id="yesBtn" onclick="celebrate()">Yes!</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+
+        function moveButton() {
+            // Calculate random positions within the viewport
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        }
+
+        // Works for desktop mouse
+        noBtn.addEventListener('mouseover', moveButton);
+        
+        // Works for mobile taps
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevents the click from firing
+            moveButton();
+        });
+
+        function celebrate() {
+            document.getElementById('mainCard').innerHTML = `
+                <div style="font-size: 60px;">💖</div>
+                <h1 style="font-size: 2.5rem;">Perfect!</h1>
+                <p>Can't wait. I'll text you soon! 😊</p>
+            `;
+            // Optional: add confetti or other effects here
+        }
+    </script>
+</body>
+</html>
