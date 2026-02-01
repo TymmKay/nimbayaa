@@ -13,44 +13,53 @@
             margin: 0;
             background: #fff5f7;
             font-family: 'Arial', sans-serif;
+            overflow: hidden; /* Prevents scrollbars when the 'No' button moves */
         }
         .container {
             text-align: center;
             background: white;
             padding: 40px;
             border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            width: 90%;
+            max-width: 400px;
         }
-        h1 { color: #ff4d6d; margin-bottom: 30px; }
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 20px; /* Slightly rounded corners for a modern look */
+            object-fit: cover;
+            border: 4px solid #ff4d6d;
+            margin-bottom: 20px;
+        }
+        h1 { color: #ff4d6d; margin-bottom: 30px; font-size: 1.6rem; }
         
-        /* This keeps them side-by-side */
         .btn-group {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 20px;
-            min-height: 50px; /* Prevents layout jump */
+            min-height: 60px;
         }
-
         button {
             padding: 12px 35px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             font-weight: bold;
-            transition: transform 0.2s;
         }
-
         #yesBtn {
             background-color: #ff4d6d;
             color: white;
+            transition: transform 0.2s;
         }
+        #yesBtn:active { transform: scale(0.9); }
 
         #noBtn {
             background-color: #adb5bd;
             color: white;
-            position: relative; /* Stays in line until moved by JS */
+            position: relative; /* Stays side-by-side initially */
             z-index: 10;
         }
     </style>
@@ -58,7 +67,10 @@
 <body>
 
     <div class="container" id="quiz-card">
+        <img src="IMG_20260131_184445_763.jpg" alt="Valentine" class="profile-img">
+        
         <h1>Will you be my Valentine? ❤️</h1>
+        
         <div class="btn-group">
             <button id="yesBtn" onclick="celebrate()">Yes</button>
             <button id="noBtn">No</button>
@@ -69,10 +81,10 @@
         const noBtn = document.getElementById('noBtn');
 
         const moveButton = () => {
-            // Switch to fixed positioning so it can fly anywhere on screen
+            // Switch to fixed so it can move anywhere on screen
             noBtn.style.position = 'fixed';
             
-            // Calculate random spots
+            // Random coordinates within the screen view
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
             
@@ -80,19 +92,18 @@
             noBtn.style.top = `${y}px`;
         };
 
-        // Desktop hover
+        // Trigger movement on hover or touch
         noBtn.addEventListener('mouseenter', moveButton);
-        
-        // Mobile tap
         noBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
+            e.preventDefault(); // Prevents accidental clicking on mobile
             moveButton();
         });
 
         function celebrate() {
             document.getElementById('quiz-card').innerHTML = `
-                <h1 style="font-size: 3rem;">Yay! See you then! 🥰</h1>
-                <p style="color: #666;">(I'll text you the time and place)</p>
+                <div style="font-size: 60px; margin-bottom: 10px;">💖</div>
+                <h1 style="font-size: 2.2rem;">Yay! See you then!</h1>
+                <p style="color: #666; font-size: 1.1rem;">I'll text you the details. 😊</p>
             `;
         }
     </script>
