@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nimbayaa | A Special Request</title>
+    <title>nimbayaa | For You</title>
     <style>
         body {
             display: flex;
@@ -11,59 +11,56 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
+            background: #fff5f7;
+            font-family: 'Arial', sans-serif;
         }
         .container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 2.5rem;
-            border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            max-width: 400px;
-            width: 90%;
             text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
-        h1 { color: #ff4757; font-size: 1.8rem; margin-bottom: 1rem; }
-        .buttons {
-            margin-top: 2.5rem;
+        h1 { color: #ff4d6d; margin-bottom: 30px; }
+        
+        /* This keeps them side-by-side */
+        .btn-group {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 20px;
-            height: 50px;
+            min-height: 50px; /* Prevents layout jump */
         }
+
         button {
-            padding: 12px 25px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            padding: 12px 35px;
+            font-size: 1.2rem;
             border-radius: 50px;
             border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
+            font-weight: bold;
+            transition: transform 0.2s;
         }
+
         #yesBtn {
-            background-color: #ff4757;
+            background-color: #ff4d6d;
             color: white;
-            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
         }
-        #yesBtn:hover { transform: scale(1.1); background-color: #ff6b81; }
+
         #noBtn {
-            background-color: #747d8c;
+            background-color: #adb5bd;
             color: white;
-            position: absolute; /* Essential for the jumping effect */
+            position: relative; /* Stays in line until moved by JS */
+            z-index: 10;
         }
     </style>
 </head>
 <body>
 
-    <div class="container" id="mainCard">
-        <div style="font-size: 60px; margin-bottom: 10px;">✨</div>
-        <h1>Will you be my Valentine?</h1>
-        <p>I promise it'll be a fun time!</p>
-        
-        <div class="buttons">
-            <button id="yesBtn" onclick="celebrate()">Yes!</button>
+    <div class="container" id="quiz-card">
+        <h1>Will you be my Valentine? ❤️</h1>
+        <div class="btn-group">
+            <button id="yesBtn" onclick="celebrate()">Yes</button>
             <button id="noBtn">No</button>
         </div>
     </div>
@@ -71,31 +68,32 @@
     <script>
         const noBtn = document.getElementById('noBtn');
 
-        function moveButton() {
-            // Calculate random positions within the viewport
+        const moveButton = () => {
+            // Switch to fixed positioning so it can fly anywhere on screen
+            noBtn.style.position = 'fixed';
+            
+            // Calculate random spots
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
             
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
-        }
+        };
 
-        // Works for desktop mouse
-        noBtn.addEventListener('mouseover', moveButton);
+        // Desktop hover
+        noBtn.addEventListener('mouseenter', moveButton);
         
-        // Works for mobile taps
+        // Mobile tap
         noBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // Prevents the click from firing
+            e.preventDefault();
             moveButton();
         });
 
         function celebrate() {
-            document.getElementById('mainCard').innerHTML = `
-                <div style="font-size: 60px;">💖</div>
-                <h1 style="font-size: 2.5rem;">Perfect!</h1>
-                <p>Can't wait. I'll text you soon! 😊</p>
+            document.getElementById('quiz-card').innerHTML = `
+                <h1 style="font-size: 3rem;">Yay! See you then! 🥰</h1>
+                <p style="color: #666;">(I'll text you the time and place)</p>
             `;
-            // Optional: add confetti or other effects here
         }
     </script>
 </body>
